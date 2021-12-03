@@ -4,20 +4,21 @@
 const Food = ({ imgpath, title, calorie, getdata }) => {
 
 
-    document.forms[title]?.addEventListener("submit",
-        (e) => {
+    const handlesubmit = (e) => {
 
 
-            document.querySelector("#quantity").value !== '' ? getdata(
-                {
-                    name: title,
-                    calorie: calorie,
-                    quantitly: document.querySelector("#quantity").value
-                })
-                : getdata({})
-            e.preventDefault()
-        }
-    )
+        const quantity = e.target.value
+         
+            const temp = {
+                name: title,
+                calorie: calorie,
+                quantity: quantity > 0 || quantity !== '' ? quantity :0
+            }
+            getdata(temp)
+            console.log(temp);
+        
+        
+    }
 
     return (
         <div key={title} className="food" >
@@ -27,9 +28,7 @@ const Food = ({ imgpath, title, calorie, getdata }) => {
                 <p>{calorie}</p>
             </div>
             <div className="inputfield">
-                <form name={title}>
-                    <input type="number" name="quantity" id="quantity" />
-                </form>
+                <input type="number" name="quantity" onChange={handlesubmit} id="quantity" />
             </div>
         </div>
     )

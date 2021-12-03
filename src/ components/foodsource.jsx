@@ -24,7 +24,7 @@ const jsonfood = [
         name: 'Cornbread',
         calories: 198,
         image: 'https://dearcrissy.com/wp-content/uploads/2017/01/easy-homemade-cornbread-4-175x175.jpg'
-    },
+    }
 
 ]
 export default jsonfood
