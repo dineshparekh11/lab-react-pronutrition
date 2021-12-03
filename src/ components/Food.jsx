@@ -18,6 +18,7 @@ const Food = ({ imgpath, title, calorie, getdata }) => {
         getdata(temp)
     }
 
+
     return (
         <div key={title} className="food" >
             <img src={imgpath} alt={title} />
@@ -26,7 +27,7 @@ const Food = ({ imgpath, title, calorie, getdata }) => {
                 <p>{calorie}</p>
             </div>
             <div className="inputfield">
-                <input type="number" name="quantity" defaultValue={0}  onChange={handlesubmit} id="quantity" />
+                <input type="number" name="quantity"   onKeyUp={handlesubmit} id="quantity" />
             </div>
         </div>
     )
