@@ -8,16 +8,14 @@ const Food = ({ imgpath, title, calorie, getdata }) => {
 
 
         const quantity = e.target.value
-         
-            const temp = {
-                name: title,
-                calorie: calorie,
-                quantity: quantity > 0 || quantity !== '' ? quantity :0
-            }
-            getdata(temp)
-            console.log(temp);
+
+        const temp = {
+            name: title,
+            calorie: calorie,
+            quantity: quantity > 0 || quantity !== '' ? Number.parseInt(quantity) : 0
+        }
         
-        
+        getdata(temp)
     }
 
     return (
@@ -28,7 +26,7 @@ const Food = ({ imgpath, title, calorie, getdata }) => {
                 <p>{calorie}</p>
             </div>
             <div className="inputfield">
-                <input type="number" name="quantity" onChange={handlesubmit} id="quantity" />
+                <input type="number" name="quantity" defaultValue={0}  onChange={handlesubmit} id="quantity" />
             </div>
         </div>
     )

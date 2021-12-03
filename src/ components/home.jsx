@@ -32,14 +32,35 @@ const Home = () => {
                 setfoodlist(foodstate)
             }
         }
-        const cartui = foodstate.filter(ele=> ele.quantity !== 0).map(ele => <SelectedFood quantity={ele.quantity} title={ele.name} calorie={ele.calorie} />)
-        ReactDOM.render(cartui, document.querySelector(".carlist"))
-        //  console.log(foodstate);
+
+        const removecart = (arg) => {
+
+            let foodstate = food
+            foodstate = foodstate.filter(ele => ele.name !== arg)
+            setfoodlist(foodstate)
+            const cartui = foodstate[0] ? foodstate.filter(ele => ele.quantity !== 0).map(ele => <SelectedFood key={ele.name} removecart={removecart} quantity={ele.quantity} title={ele.name} calorie={ele.calorie} />) : undefined
+
+            const totalcalorie = foodstate[0] ? foodstate.map(ele => ele.quantity * ele.calorie).reduce((output, next) => output + next) : undefined
+            ReactDOM.render(
+                <React.Fragment>
+                    <h1>Today's Food {totalcalorie} cal</h1>
+                    {cartui}
+                </React.Fragment>
+                , document.querySelector(".cartlist"))
+
+
+        }
+        const cartui = foodstate[0] ? foodstate.filter(ele => ele.quantity !== 0).map(ele => <SelectedFood key={ele.name} removecart={removecart} quantity={ele.quantity} title={ele.name} calorie={ele.calorie} />) : null
+
+        const totalcalorie = foodstate[0] ? foodstate.map(ele => ele.quantity * ele.calorie).reduce((output, next) => output + next) : null
+        ReactDOM.render(
+            <React.Fragment>
+                <h1>Today's Food {totalcalorie} cal</h1>
+                {cartui}
+            </React.Fragment>
+            , document.querySelector(".cartlist"))
     }
-
-
-    console.log(food);
-
+    
     const filterfood = (e) => {
         if (e.target.value)
             setfilter(jsonfood.filter(ele => ele.name.toLowerCase().startsWith(e.target.value)).map(ele => <Food getdata={sharedata} key={ele.name} title={ele.name} calorie={ele.calories} imgpath={ele.image} />))
@@ -60,7 +81,7 @@ const Home = () => {
                 {filterui ? filterui : ui}
 
             </div>
-            <div className="carlist">
+            <div className="cartlist">
             </div>
         </React.Fragment>
     )
